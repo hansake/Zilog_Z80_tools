@@ -48,6 +48,16 @@ int read_sector(unsigned char *sbuf, int sector, int track)
     {
     size_t insize;
 
+    if ((sector < 0) || (32 <= sector))
+        {
+        printf("Sector out of range: %d\n", sector);
+        return (0);
+        }
+    if ((track < 0) || (endtrack <= track))
+        {
+        printf("Track out of range: %d\n", sector);
+        return (0);
+        }
     if (0 != fseek(imagefd, ((sector * 136) + (track * 4352)), SEEK_SET))
         {
         fclose(imagefd);
@@ -77,7 +87,7 @@ void print_sector(unsigned char *sbuf)
         else
             printf(".");
         }
-    printf(" back: %d,%d fwd: %d,%d\n", sbuf[130], sbuf[131], sbuf[132], sbuf[133]); 
+    printf(" back: %2d,%2d fwd: %2d,%2d\n", sbuf[130], sbuf[131], sbuf[132], sbuf[133]); 
     }
 
 /* Go through file
@@ -136,7 +146,8 @@ void file_walk(char *fname, unsigned char *dbuf)
         rec_ptr = file_rec_buf;
         for (sec_in_rec_cnt = 0; sec_in_rec_cnt < sectors_per_record; sec_in_rec_cnt++)
             {
-            read_sector(file_sec_buf, curr_rec_sector + sec_in_rec_cnt, curr_rec_track);
+            if (read_sector(file_sec_buf, curr_rec_sector + sec_in_rec_cnt, curr_rec_track) == 0)
+                return;
             sector_cntr += 1;
             if (verbose_flag)
                 print_sector(file_sec_buf);
@@ -183,7 +194,8 @@ void directory_walk()
     while (get_entries)
         {
         /* Read directory sector */
-        read_sector(sect_buf, sector, track);
+        if (read_sector(sect_buf, sector, track) == 0)
+            return;
         if (sect_buf[2] == 0xff) /* end of directory sectors */
             {
             get_entries = 0;
@@ -202,7 +214,8 @@ void directory_walk()
             if ((file_name && (strncmp(dir_filename, file_name, 32) == 0) || (file_name == NULL)))
                 {
                 printf("%s\n", dir_filename);
-                read_sector(des_buf, des_sector, des_track);
+                if (read_sector(des_buf, des_sector, des_track) == 0)
+                    return;
                 if (descriptor_flag)
                     {
                     printf("  Reserved: 0x%02x 0x%02x 0x%02x 0x%02x\n", des_buf[2 + 0], des_buf[2 + 1], des_buf[2 + 2], des_buf[2 + 3]);
@@ -227,8 +240,8 @@ void directory_walk()
                     if (des_buf[2 + 12] & 0x80)
                         printf("  Procedure start address: 0x%04x\n", des_buf[2 + 20] + 256 * des_buf[2 + 21]);
                     printf("  Bytes in last record: %d\n", des_buf[2 + 22] + 256 * des_buf[2 + 23]);
-                    printf("  Date of creation: %s\n", &des_buf[2 + 24]);
-                    printf("  Date of last modification: %s\n", &des_buf[2 + 32]);
+                    printf("  Date of creation: %.6s\n", &des_buf[2 + 24]);
+                    printf("  Date of last modification: %.6s\n", &des_buf[2 + 32]);
                     if (des_buf[2 + 12] & 0x80)
                         {
                         printf("  Segment descriptors\n");
