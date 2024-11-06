@@ -16,4 +16,4 @@ Tool to list and export files from Zilog ZDOS diskette image FILES
   -h, --help            show help
   -v, --verbose         show details
 ``` 
-Some checks of the image is still missing.
+Some checks of the image are still missing.
