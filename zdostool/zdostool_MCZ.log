@@ -1,5 +1,5 @@
 Log file when analysing files in https://github.com/sebhc/sebhc/tree/master/mcz#software-disk-images
-Either zdstool gets it wrong ot the image files has some errors.
+Either zdstool gets it wrong or the image files has some errors.
 ```
 $ zdostool -a *.MCZ
 Image file: 13-1000-01-UNABRIDGED_SYSTEM_DISK.MCZ, ZDOS file: PRINTER.S
