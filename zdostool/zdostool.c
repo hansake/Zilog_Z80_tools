@@ -20,6 +20,7 @@
 /* Options */
 char *file_name = NULL;
 int analyze_flag = 0;
+int backptr_flag = 0;
 int createdir_flag = 0;
 int descriptor_flag = 0;
 int export_flag = 0;
@@ -235,6 +236,18 @@ void file_walk(char *fname, unsigned char *dbuf)
             else
                 fwrite(file_rec_buf, record_length, 1, exportfd);
             }
+        /* Check that backward pointers are correct, not very reliable yet */
+        if (backptr_flag)
+            {
+            if ((curr_rec_sector != file_sec_buf[130]) || (curr_rec_track != file_sec_buf[131]))
+                {
+                prt_imgf_zdosf();
+                printf("Invalid backward pointer: %d,%d in sector: %d,%d\n",
+                   file_sec_buf[130], file_sec_buf[131],
+                  file_sec_buf[132], file_sec_buf[133]);
+                }
+            }
+        /* Get sector and track numbers for next sector to read */
         curr_rec_sector = file_sec_buf[132];
         curr_rec_track = file_sec_buf[133];
         if ((curr_rec_sector == 0xff) && (curr_rec_track == 0xff))
@@ -359,6 +372,7 @@ void usage (int status)
 Tool to list and export files from Zilog ZDOS diskette image FILES\n\
 \n\
   -a, --analyze         analyze the content on the imagefile and report errors\n\
+  -b, --backptr         analyze back pointers in sectors, not reliable yet\n\
   -c, --createdir       create directory for each imagefile\n\
   -d, --descriptor      print file descriptors\n\
   -e, --export          export files from diskette image\n\
@@ -379,6 +393,7 @@ int main(int argc, char **argv)
     static struct option long_options[] =
         {
             {"analyze",    no_argument,       NULL, 'a'},
+            {"backptr",    no_argument,       NULL, 'b'},
             {"createdir",  no_argument,       NULL, 'c'},
             {"descriptor", no_argument,       NULL, 'd'},
             {"export",     no_argument,       NULL, 'e'},
@@ -391,12 +406,15 @@ int main(int argc, char **argv)
     int option_index = 0;
 
     program_name = basename(argv[0]);
-    while ((optchr = getopt_long(argc, argv, "acdef:hv", long_options, NULL)) != -1)
+    while ((optchr = getopt_long(argc, argv, "abcdef:hv", long_options, NULL)) != -1)
         {
         switch (optchr)
             {
         case 'a':
             analyze_flag = 1;
+            break;
+        case 'b':
+            backptr_flag = 1;
             break;
         case 'c':
             createdir_flag = 1;
