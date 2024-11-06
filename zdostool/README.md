@@ -5,7 +5,7 @@ The diskette images I tested zdostool with were downloaded from
 ```
 $ zdostool -h
 Usage: zdostool [OPTIONS] [IMAGEFILES]...
-Tool to list and export files from Zilog ZDOS diskette image FILES
+Tool to list and export RIO files from Zilog ZDOS diskette image files
 
   -a, --analyze         analyze the content on the imagefile and report errors
   -b, --backptr         analyze back pointers in sectors, not reliable yet
