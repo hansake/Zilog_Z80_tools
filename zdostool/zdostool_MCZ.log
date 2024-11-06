@@ -1,9 +1,21 @@
 Log file when analysing files in https://github.com/sebhc/sebhc/tree/master/mcz#software-disk-images
 Either zdstool gets it wrong or the image files has some errors.
 
-$ zdostool -a *.MCZ
+$ zdostool -ab *.MCZ
 Image file: 13-1000-01-UNABRIDGED_SYSTEM_DISK.MCZ, ZDOS file: PRINTER.S
   -> Invalid track number on disk image: 129, expected to read: 71
+Image file: 13-3001-01_MCZ1-20_RIO_206.MCZ, ZDOS file: NOTE.TO.USER
+  -> Invalid track number on disk image: 128, expected to read: 43
+Image file: 13-3001-01_MCZ1-20_RIO_206.MCZ, ZDOS file: HELP.DAT.02
+  -> Invalid track number on disk image: 128, expected to read: 51
+Image file: 13-3001-01_MCZ1-20_RIO_206.MCZ, ZDOS file: HELP.DAT.03
+  -> Invalid track number on disk image: 128, expected to read: 54
+Image file: 13-3001-03_MCZ-PDS_RIO_2-2.MCZ, ZDOS file: ZDOS
+  -> Invalid track number on disk image: 55, expected to read: 19
+Image file: 13-3001-03_MCZ-PDS_RIO_2-2.MCZ, ZDOS file: HELP
+  -> Invalid track number on disk image: 128, expected to read: 5
+Image file: 13-3001-03_MCZ-PDS_RIO_2-2.MCZ, ZDOS file: NBUG2.OBJ
+  -> Invalid track number on disk image: 0, expected to read: 50
 Image file: 13-3202-01A_MCZ_1_05-30_RIO_COMMANDS_SRC_2_OF_2.MCZ, ZDOS file: FORMAT.S
   -> Invalid track number on disk image: 208, expected to read: 17
 Image file: 13-3202-01A_MCZ_1_05-30_RIO_COMMANDS_SRC_2_OF_2.MCZ, ZDOS file: DEB.MCMDS.S
@@ -64,6 +76,10 @@ Image file: 13-3215-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_2_OF_2.MCZ, ZDOS 
   -> Invalid track number on disk image: 128, expected to read: 56
 Image file: 13-3222-02_RIO_EDIT_SOURCES_REL_2.2.MCZ, ZDOS file: DIRECTORY
   -> Invalid track number on disk image: 128, expected to read: 22
+Image file: 13-3263-03A_MCZ_1_35_PROM_SOURCE_4K_790226_33-0084-34,37_REV_D.MCZ, ZDOS file: MCZ.1.90.PROM.790226.OBJ
+  -> Invalid backward pointer: 12,67 in sector: 22,67
+Image file: 13-3263-03A_MCZ_1_35_PROM_SOURCE_4K_790226_33-0084-34,37_REV_D.MCZ, ZDOS file: MCZ.1.90.PROM.790226.OBJ
+  -> Invalid backward pointer: 7,68 in sector: 15,68
 Image file: 13-3361-06_MCZ-PDS_FD_Z8000_SDP_4-0.MCZ, ZDOS file: Z8ASM
   -> Invalid track number on disk image: 128, expected to read: 17
 Image file: 13-3361-06_MCZ-PDS_FD_Z8000_SDP_4-0.MCZ, ZDOS file: NOTE.TO.Z8.PLZASM.USER
@@ -81,7 +97,11 @@ Image file: 13-3391-03_ASYNC_MCZ1-PDS_SYSTEM_REL_1-1.MCZ, ZDOS file: FEP.USER.GU
 Image file: RIO2-2.MCZ, ZDOS file: HELP
   -> Invalid track number on disk image: 128, expected to read: 5
 Image file: RIO2-2.MCZ, ZDOS file: CON.MAIN.OBJ
+  -> Invalid backward pointer: 42,16 in sector: 45,36
+Image file: RIO2-2.MCZ, ZDOS file: CON.MAIN.OBJ
   -> Sector out of range: 45
+Image file: RIO2-2.MCZ, ZDOS file: NBUG.OBJ
+  -> Invalid backward pointer: 44,215 in sector: 144,17
 Image file: RIO2-2.MCZ, ZDOS file: NBUG.OBJ
   -> Sector out of range: 144
 Image file: SYSTEM_1_OF_4.MCZ, ZDOS file: CC
@@ -99,9 +119,15 @@ Image file: SYSTEM_4_OF_4.MCZ, ZDOS file: ZBUG
 Image file: Z8000_ASM.MCZ, ZDOS file: Z8000ASM
   -> Track out of range: 2
 Image file: Z8000_ASM.MCZ, ZDOS file: MSATA
+  -> Invalid backward pointer: 112,88 in sector: 68,88
+Image file: Z8000_ASM.MCZ, ZDOS file: MSATA
   -> Sector out of range: 68
 Image file: Z8000_ASM.MCZ, ZDOS file: CARROT3
   -> Sector out of range: 65
+Image file: Z8000_ASM.MCZ, ZDOS file: SIFT
+  -> Invalid backward pointer: 15,22 in sector: 27,27
+Image file: Z8000_ASM.MCZ, ZDOS file: OPUS20
+  -> Invalid backward pointer: 10,22 in sector: 7,28
 Image file: Z8000_ASM.MCZ, ZDOS file: LPC10C
   -> Sector out of range: 76
 Image file: Z8000_ASM.MCZ, ZDOS file: ERTST
@@ -110,10 +136,16 @@ Image file: Z8000_ASM.MCZ, ZDOS file: WANDA
   -> Sector out of range: 32
 Image file: Z8000_ASM.MCZ, ZDOS file: BENCH20
   -> Invalid track number on disk image: 60, expected to read: 20
+Image file: Z8000_ASM.MCZ, ZDOS file: RESIDUAL
+  -> Invalid backward pointer: 1,31 in sector: 5,32
 Image file: Z8000_ASM.MCZ, ZDOS file: STEW
   -> Sector out of range: 32
 Image file: Z8000_ASM.MCZ, ZDOS file: CONVRT.L
+  -> Invalid backward pointer: 28,76 in sector: 48,76
+Image file: Z8000_ASM.MCZ, ZDOS file: CONVRT.L
   -> Sector out of range: 48
+Image file: Z8000_ASM.MCZ, ZDOS file: CONVRT.S
+  -> Invalid backward pointer: 103,225 in sector: 7,230
 Image file: Z8000_ASM.MCZ, ZDOS file: CONVRT.S
   -> Track out of range: 7
 Image file: Z8000_ASM.MCZ, ZDOS file: OPUS_4
@@ -122,6 +154,10 @@ Image file: Z8000_ASM.MCZ, ZDOS file: CONVRT.L.OLD
   -> Invalid track number on disk image: 128, expected to read: 31
 Image file: Z8000_ASM.MCZ, ZDOS file: OLDLOD.L
   -> Sector out of range: 255
+Image file: Z8000_ASM.MCZ, ZDOS file: OLDLOD.L.OLD
+  -> Invalid backward pointer: 0,0 in sector: 0,3
+Image file: Z8000_ASM.MCZ, ZDOS file: OLDLOD.L.OLD
+  -> Invalid backward pointer: 24,3 in sector: 255,255
 Image file: Z8000_DEV_MODULE.MCZ, ZDOS file: SIFT
   -> Invalid track number on disk image: 8, expected to read: 27
 Image file: Z8000_DEV_MODULE.MCZ, ZDOS file: TEST
