@@ -173,6 +173,8 @@ void file_walk(char *fname, unsigned char *dbuf)
     int first_rec_track;
     int last_rec_sector;
     int last_rec_track;
+    int previous_rec_sector;
+    int previous_rec_track;
     int curr_rec_sector;
     int curr_rec_track;
     int sectors_per_record;
@@ -215,6 +217,8 @@ void file_walk(char *fname, unsigned char *dbuf)
         if ((exportfd = fopen(image_path_filename, "w")) == NULL)
             exit(EXIT_FAILURE);
         }
+    previous_rec_sector = -1;
+    previous_rec_track = -1;
 
     for (rec_cnt = 0; rec_cnt < record_count; rec_cnt++)
         {
@@ -237,17 +241,20 @@ void file_walk(char *fname, unsigned char *dbuf)
                 fwrite(file_rec_buf, record_length, 1, exportfd);
             }
         /* Check that backward pointers are correct, not very reliable yet */
-        if (backptr_flag)
+        if (backptr_flag && 0 < previous_rec_sector && 0 < previous_rec_track)
             {
-            if ((curr_rec_sector != file_sec_buf[130]) || (curr_rec_track != file_sec_buf[131]))
+            if ((previous_rec_sector != file_sec_buf[130]) || (previous_rec_track != file_sec_buf[131]))
                 {
                 prt_imgf_zdosf();
                 printf("Invalid backward pointer: %d,%d in sector: %d,%d\n",
-                   file_sec_buf[130], file_sec_buf[131],
-                  file_sec_buf[132], file_sec_buf[133]);
+                    file_sec_buf[130], file_sec_buf[131],
+                    file_sec_buf[132], file_sec_buf[133]);
                 }
             }
-        /* Get sector and track numbers for next sector to read */
+        /* Save current sector and track number */
+        previous_rec_sector = curr_rec_sector;
+        previous_rec_track = curr_rec_track;
+        /* Get sector and track number for next sector to read */
         curr_rec_sector = file_sec_buf[132];
         curr_rec_track = file_sec_buf[133];
         if ((curr_rec_sector == 0xff) && (curr_rec_track == 0xff))
@@ -371,10 +378,10 @@ void usage (int status)
         fputs("\
 Tool to list and export RIO files from Zilog ZDOS diskette image files\n\
 \n\
-  -a, --analyze         analyze the content on the imagefile and report errors\n\
-  -b, --backptr         analyze back pointers in sectors, not reliable yet\n\
-  -c, --createdir       create directory for each imagefile\n\
-  -d, --descriptor      print file descriptors\n\
+  -a, --analyze         analyze the content of the image file and report errors\n\
+  -b, --backptr         analyze back pointers in sectors and report errors\n\
+  -c, --createdir       create a directory for each imagefile\n\
+  -d, --descriptor      print file descriptor information\n\
   -e, --export          export files from diskette image\n\
   -f, --file [NAME]     name of the file if single file is listed or exported\n\
   -h, --help            show help\n\
