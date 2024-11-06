@@ -1,6 +1,6 @@
 /* zdostool.c - Tool to list and extract files from Zilog ZDOS diskette images. 
  *
- * The MCZ ZDOS-II image format format is described in:
+ * The MCZ ZDOS-II image format is described in:
  * https://github.com/sebhc/sebhc/tree/master/mcz#software-disk-images
  * https://github.com/sebhc/sebhc/blob/master/mcz/docs/03-0072-01A_Z80_RIO_Operating_System_Users_Manual_Sep78.pdf
  *
@@ -19,6 +19,7 @@
 
 /* Options */
 char *file_name = NULL;
+int analyze_flag = 0;
 int createdir_flag = 0;
 int descriptor_flag = 0;
 int export_flag = 0;
@@ -31,7 +32,7 @@ unsigned char sect_buf[136];
 unsigned char des_buf[136];
 unsigned char file_sec_buf[136];
 unsigned char file_rec_buf[4096];
-char dir_filename[33];
+char zdos_filename[33];
 char image_filename[256];
 char disk_directory[256 + 4];
 char image_path_filename[256 + 4 + 33];
@@ -39,6 +40,53 @@ FILE *imagefd = NULL;
 FILE *exportfd = NULL;
 long filesize;
 int endtrack;
+
+/* From https://stjarnhimlen.se/snippets/crc-16.c
+//
+//                                      16   12   5
+// this is the CCITT CRC 16 polynomial X  + X  + X  + 1.
+// This works out to be 0x1021, but the way the algorithm works
+// lets us use 0x8408 (the reverse of the bit pattern).  The high
+// bit is always assumed to be set, thus we only use 16 bits to
+// represent the 17 bit value.
+*/
+#define POLY 0x8408
+
+unsigned short crc16(char *data_p, unsigned short length)
+    {
+    unsigned char i;
+    unsigned int data;
+    unsigned int crc = 0xffff;
+
+    if (length == 0)
+        return (~crc);
+
+    do
+        {
+        for (i=0, data=(unsigned int)0xff & *data_p++; i < 8; i++, data >>= 1)
+            {
+            if ((crc & 0x0001) ^ (data & 0x0001))
+                crc = (crc >> 1) ^ POLY;
+            else
+                crc >>= 1;
+            }
+        } while (--length);
+
+    crc = ~crc;
+    data = crc;
+    crc = (crc << 8) | (data >> 8 & 0xff);
+
+    return (crc);
+    }
+
+/* Print image file name and ZDOS file name if error detected
+ * and the analyze flag is on.
+ */
+void prt_imgf_zdosf(void)
+    {
+    if (analyze_flag)
+        printf("Image file: %s, ZDOS file: %s\n  -> ", image_filename, zdos_filename);
+    }
 
 /* Read sector from diskette image
  * Buffer sbuf must be at least 136 bytes
@@ -50,11 +98,13 @@ int read_sector(unsigned char *sbuf, int sector, int track)
 
     if ((sector < 0) || (32 <= sector))
         {
+        prt_imgf_zdosf();
         printf("Sector out of range: %d\n", sector);
         return (0);
         }
     if ((track < 0) || (endtrack <= track))
         {
+        prt_imgf_zdosf();
         printf("Track out of range: %d\n", sector);
         return (0);
         }
@@ -64,15 +114,35 @@ int read_sector(unsigned char *sbuf, int sector, int track)
         exit(EXIT_FAILURE);
         }
     insize = fread(sbuf, sizeof(sect_buf), 1, imagefd);
+    if (!(sbuf[0] & 0x80))
+        {
+        printf("Invalid sector on disk, no start bit\n");
+        return (0);
+        }
+    if ((sbuf[0] & 0x7f) != sector)
+        {
+        prt_imgf_zdosf();
+        printf("Invalid sector number on disk image: %d, expected to read: %d\n", sbuf[0] & 0x7f, sector);
+        return (0);
+        }
+    if (sbuf[1] != track)
+        {
+        prt_imgf_zdosf();
+        printf("Invalid track number on disk image: %d, expected to read: %d\n", sbuf[1], track);
+        return (0);
+        }
     return (insize);
     }
 
-/* Print sector from sector buffer read from diskette image
- * Debug routine for briefly inspecting data in sector
+/* Print sector from sector buffer read from diskette image.
+ * Debug routine for briefly inspecting and checking data in a sector.
+ * Sector: (1 byte sector number) (1 byte track number) (128 bytes data) (2 byte back ptr) (2 byte fwd ptr) (2 byte crc) 
+ * Sector number always has the high bit set. In total each sector is 136 bytes.
  */
 void print_sector(unsigned char *sbuf)
     {
     int dump_index;
+    unsigned int calc_crc;
 
     printf("sect,track: %2d,%2d ", (sbuf[0] & 0x7f), sbuf[1]);
     for (dump_index = 2; dump_index < 10; dump_index++)
@@ -87,7 +157,10 @@ void print_sector(unsigned char *sbuf)
         else
             printf(".");
         }
-    printf(" back: %2d,%2d fwd: %2d,%2d\n", sbuf[130], sbuf[131], sbuf[132], sbuf[133]); 
+    printf(" back: %2d,%2d fwd: %2d,%2d\n", sbuf[130], sbuf[131], sbuf[132], sbuf[133]);
+    /* Check CRC, this is however not yet the correct CRC calculation */
+    calc_crc = crc16(sbuf, 134);
+    printf("    crc: 0x%04x calc crc: 0x%04x\n", (sbuf[134] + 256 * sbuf[135]), calc_crc);
     }
 
 /* Go through file
@@ -205,15 +278,19 @@ void directory_walk()
         for (dir_ptr = &sect_buf[2]; (0x7f & *dir_ptr) && (*dir_ptr != 0xff);)
             {
             dirent_len = 0x7f & *dir_ptr++;
-            memset(dir_filename, 0, sizeof(dir_filename));
+            memset(zdos_filename, 0, sizeof(zdos_filename));
             for (ptr_idx = 0; ptr_idx < dirent_len; ptr_idx++, dir_ptr++)
-                dir_filename[ptr_idx] = *dir_ptr;
-            dir_filename[ptr_idx] = 0;
+                zdos_filename[ptr_idx] = *dir_ptr;
+            zdos_filename[ptr_idx] = 0;
             des_sector = *dir_ptr++;
             des_track = *dir_ptr++;
-            if ((file_name && (strncmp(dir_filename, file_name, 32) == 0) || (file_name == NULL)))
+            if ((file_name && (strncmp(zdos_filename, file_name, 32) == 0) || (file_name == NULL)))
                 {
-                printf("%s\n", dir_filename);
+                if ((strncmp(zdos_filename, "DIRECTORY", 9) != 0) || descriptor_flag)
+                    {
+                    if (!analyze_flag)
+                        printf("%s\n", zdos_filename);
+                    }
                 if (read_sector(des_buf, des_sector, des_track) == 0)
                     return;
                 if (descriptor_flag)
@@ -260,7 +337,7 @@ void directory_walk()
                         printf("  Stack size: 0x%04x\n", des_buf[2 + 126] + 256 * des_buf[2 + 127]);
                         }
                     }
-                file_walk(dir_filename, des_buf);
+                file_walk(zdos_filename, des_buf);
                 }
             }
         sector = sect_buf[132];
@@ -280,6 +357,7 @@ void usage (int status)
         fputs("\
 Tool to list and export files from Zilog ZDOS diskette image FILES\n\
 \n\
+  -a, --analyze         analyze the content on the imagefile and report errors\n\
   -c, --createdir       create directory for each imagefile\n\
   -d, --descriptor      print file descriptors\n\
   -e, --export          export files from diskette image\n\
@@ -299,6 +377,7 @@ int main(int argc, char **argv)
 
     static struct option long_options[] =
         {
+            {"analyze",    no_argument,       NULL, 'a'},
             {"createdir",  no_argument,       NULL, 'c'},
             {"descriptor", no_argument,       NULL, 'd'},
             {"export",     no_argument,       NULL, 'e'},
@@ -311,10 +390,13 @@ int main(int argc, char **argv)
     int option_index = 0;
 
     program_name = basename(argv[0]);
-    while ((optchr = getopt_long(argc, argv, "cdef:hv", long_options, NULL)) != -1)
+    while ((optchr = getopt_long(argc, argv, "acdef:hv", long_options, NULL)) != -1)
         {
         switch (optchr)
             {
+        case 'a':
+            analyze_flag = 1;
+            break;
         case 'c':
             createdir_flag = 1;
             break;
