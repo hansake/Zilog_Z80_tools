@@ -369,7 +369,7 @@ void usage (int status)
         {
         printf("Usage: %s [OPTIONS] [IMAGEFILES]...\n", program_name);
         fputs("\
-Tool to list and export files from Zilog ZDOS diskette image FILES\n\
+Tool to list and export RIO files from Zilog ZDOS diskette image files\n\
 \n\
   -a, --analyze         analyze the content on the imagefile and report errors\n\
   -b, --backptr         analyze back pointers in sectors, not reliable yet\n\
