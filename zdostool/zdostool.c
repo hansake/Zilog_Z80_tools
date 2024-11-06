@@ -116,7 +116,8 @@ int read_sector(unsigned char *sbuf, int sector, int track)
     insize = fread(sbuf, sizeof(sect_buf), 1, imagefd);
     if (!(sbuf[0] & 0x80))
         {
-        printf("Invalid sector on disk, no start bit\n");
+        prt_imgf_zdosf();
+        printf("Invalid sector on disk: %d, no start bit, expected to read: %d\n", sbuf[0], sector);
         return (0);
         }
     if ((sbuf[0] & 0x7f) != sector)
