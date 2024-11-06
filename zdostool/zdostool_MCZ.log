@@ -1,6 +1,6 @@
 Log file when analysing files in https://github.com/sebhc/sebhc/tree/master/mcz#software-disk-images
 Either zdstool gets it wrong or the image files has some errors.
-```
+
 $ zdostool -a *.MCZ
 Image file: 13-1000-01-UNABRIDGED_SYSTEM_DISK.MCZ, ZDOS file: PRINTER.S
   -> Invalid track number on disk image: 129, expected to read: 71
@@ -142,4 +142,4 @@ Image file: Z8000_DEV_MODULE_SOURCE.MCZ, ZDOS file: SEG.PRG6.S
   -> Invalid track number on disk image: 200, expected to read: 44
 Image file: Z8000_DEV_MODULE_SOURCE.MCZ, ZDOS file: Z.79218.S
   -> Invalid track number on disk image: 128, expected to read: 45
-```
+
