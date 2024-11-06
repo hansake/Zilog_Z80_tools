@@ -1,0 +1,145 @@
+Log file when analysing files in https://github.com/sebhc/sebhc/tree/master/mcz#software-disk-images
+Either zdstool gets it wrong or the image files has some errors.
+
+$ zdostool -a *.MCZ
+Image file: 13-1000-01-UNABRIDGED_SYSTEM_DISK.MCZ, ZDOS file: PRINTER.S
+  -> Invalid track number on disk image: 129, expected to read: 71
+Image file: 13-3202-01A_MCZ_1_05-30_RIO_COMMANDS_SRC_2_OF_2.MCZ, ZDOS file: FORMAT.S
+  -> Invalid track number on disk image: 208, expected to read: 17
+Image file: 13-3202-01A_MCZ_1_05-30_RIO_COMMANDS_SRC_2_OF_2.MCZ, ZDOS file: DEB.MCMDS.S
+  -> Invalid track number on disk image: 161, expected to read: 41
+Image file: 13-3208-02_RIO_COMMANDS_SOURCE_1_OF_2.MCZ, ZDOS file: RIO1.S
+  -> Invalid track number on disk image: 128, expected to read: 20
+Image file: 13-3208-02_RIO_COMMANDS_SOURCE_1_OF_2.MCZ, ZDOS file: CAT.S
+  -> Invalid track number on disk image: 104, expected to read: 35
+Image file: 13-3208-02_RIO_COMMANDS_SOURCE_1_OF_2.MCZ, ZDOS file: NOTE.TO.USER
+  -> Invalid track number on disk image: 128, expected to read: 67
+Image file: 13-3209-01_RIO_COMMANDS_SOURCE_2_OF_2.MCZ, ZDOS file: COPY.DISK.S
+  -> Invalid track number on disk image: 52, expected to read: 13
+Image file: 13-3209-01_RIO_COMMANDS_SOURCE_2_OF_2.MCZ, ZDOS file: DISK.FILE.DEBUG.S
+  -> Invalid track number on disk image: 129, expected to read: 37
+Image file: 13-3209-01_RIO_COMMANDS_SOURCE_2_OF_2.MCZ, ZDOS file: NOTE.TO.USER
+  -> Invalid track number on disk image: 128, expected to read: 51
+Image file: 13-3210-01_NBUG_&_ZBUG_SOURCES.MCZ, ZDOS file: NBUG1.S
+  -> Invalid track number on disk image: 180, expected to read: 30
+Image file: 13-3210-01_NBUG_&_ZBUG_SOURCES.MCZ, ZDOS file: ZBUG.S
+  -> Invalid track number on disk image: 128, expected to read: 3
+Image file: 13-3210-01_RIO_NBUG_AND_ZBUG_SOURCES.MCZ, ZDOS file: ZBUG.S
+  -> Invalid track number on disk image: 128, expected to read: 3
+Image file: 13-3214-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_1_OF_2.MCZ, ZDOS file: EVAL.RES.S
+  -> Invalid track number on disk image: 128, expected to read: 25
+Image file: 13-3214-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_1_OF_2.MCZ, ZDOS file: SYMTAB.RES.S
+  -> Invalid track number on disk image: 128, expected to read: 16
+Image file: 13-3214-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_1_OF_2.MCZ, ZDOS file: INSTID.P1.S
+  -> Invalid track number on disk image: 128, expected to read: 30
+Image file: 13-3214-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_1_OF_2.MCZ, ZDOS file: UTL.P1.S
+  -> Invalid track number on disk image: 129, expected to read: 10
+Image file: 13-3214-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_1_OF_2.MCZ, ZDOS file: UTL.RES.PROD.S
+  -> Invalid track number on disk image: 129, expected to read: 37
+Image file: 13-3214-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_1_OF_2.MCZ, ZDOS file: PEEL.RES.S
+  -> Invalid track number on disk image: 212, expected to read: 6
+Image file: 13-3214-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_1_OF_2.MCZ, ZDOS file: IOUTL.RES.S
+  -> Invalid track number on disk image: 128, expected to read: 41
+Image file: 13-3214-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_1_OF_2.MCZ, ZDOS file: SCAN.P1.S
+  -> Invalid track number on disk image: 128, expected to read: 0
+Image file: 13-3215-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_2_OF_2.MCZ, ZDOS file: BUILD1.P2.S
+  -> Invalid track number on disk image: 128, expected to read: 21
+Image file: 13-3215-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_2_OF_2.MCZ, ZDOS file: BUILDTABL.P2.S
+  -> Invalid track number on disk image: 129, expected to read: 25
+Image file: 13-3215-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_2_OF_2.MCZ, ZDOS file: OUTPUT.P2.S
+  -> Invalid track number on disk image: 128, expected to read: 14
+Image file: 13-3215-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_2_OF_2.MCZ, ZDOS file: SYMTAB.P2.S
+  -> Invalid track number on disk image: 128, expected to read: 30
+Image file: 13-3215-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_2_OF_2.MCZ, ZDOS file: OUTPUT.P3.S
+  -> Invalid track number on disk image: 128, expected to read: 36
+Image file: 13-3215-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_2_OF_2.MCZ, ZDOS file: BAD.OUTPUT.P3.S
+  -> Invalid track number on disk image: 128, expected to read: 42
+Image file: 13-3215-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_2_OF_2.MCZ, ZDOS file: LINK1.S
+  -> Invalid track number on disk image: 128, expected to read: 2
+Image file: 13-3215-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_2_OF_2.MCZ, ZDOS file: LINK3.S
+  -> Invalid track number on disk image: 129, expected to read: 47
+Image file: 13-3215-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_2_OF_2.MCZ, ZDOS file: LINK4.S
+  -> Invalid track number on disk image: 128, expected to read: 50
+Image file: 13-3215-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_2_OF_2.MCZ, ZDOS file: LINK6.S
+  -> Invalid track number on disk image: 128, expected to read: 56
+Image file: 13-3222-02_RIO_EDIT_SOURCES_REL_2.2.MCZ, ZDOS file: DIRECTORY
+  -> Invalid track number on disk image: 128, expected to read: 22
+Image file: 13-3361-06_MCZ-PDS_FD_Z8000_SDP_4-0.MCZ, ZDOS file: Z8ASM
+  -> Invalid track number on disk image: 128, expected to read: 17
+Image file: 13-3361-06_MCZ-PDS_FD_Z8000_SDP_4-0.MCZ, ZDOS file: NOTE.TO.Z8.PLZASM.USER
+  -> Invalid track number on disk image: 128, expected to read: 4
+Image file: 13-3361-06_MCZ-PDS_FD_Z8000_SDP_4-0.MCZ, ZDOS file: ZLINK
+  -> Invalid track number on disk image: 31, expected to read: 47
+Image file: 13-3391-03_ASYNC_MCZ1-PDS_SYSTEM_REL_1-1.MCZ, ZDOS file: MCZ2
+  -> Invalid track number on disk image: 1, expected to read: 33
+Image file: 13-3391-03_ASYNC_MCZ1-PDS_SYSTEM_REL_1-1.MCZ, ZDOS file: MCZ2_MAIN.OBJ
+  -> Invalid track number on disk image: 128, expected to read: 14
+Image file: 13-3391-03_ASYNC_MCZ1-PDS_SYSTEM_REL_1-1.MCZ, ZDOS file: COMM.FOR.HARD.DISK.MCZ1A
+  -> Invalid track number on disk image: 59, expected to read: 35
+Image file: 13-3391-03_ASYNC_MCZ1-PDS_SYSTEM_REL_1-1.MCZ, ZDOS file: FEP.USER.GUIDE.OLD
+  -> Invalid track number on disk image: 128, expected to read: 40
+Image file: RIO2-2.MCZ, ZDOS file: HELP
+  -> Invalid track number on disk image: 128, expected to read: 5
+Image file: RIO2-2.MCZ, ZDOS file: CON.MAIN.OBJ
+  -> Sector out of range: 45
+Image file: RIO2-2.MCZ, ZDOS file: NBUG.OBJ
+  -> Sector out of range: 144
+Image file: SYSTEM_1_OF_4.MCZ, ZDOS file: CC
+  -> Invalid track number on disk image: 47, expected to read: 5
+Image file: SYSTEM_1_OF_4.MCZ, ZDOS file: Y2
+  -> Invalid track number on disk image: 160, expected to read: 69
+Image file: SYSTEM_2_OF_4.MCZ, ZDOS file: ZSYS
+  -> Invalid track number on disk image: 184, expected to read: 48
+Image file: SYSTEM_2_OF_4.MCZ, ZDOS file: ZSYSLIB
+  -> Invalid track number on disk image: 128, expected to read: 67
+Image file: SYSTEM_4_OF_4.MCZ, ZDOS file: ZSUB
+  -> Invalid track number on disk image: 129, expected to read: 24
+Image file: SYSTEM_4_OF_4.MCZ, ZDOS file: ZBUG
+  -> Invalid track number on disk image: 129, expected to read: 15
+Image file: Z8000_ASM.MCZ, ZDOS file: Z8000ASM
+  -> Track out of range: 2
+Image file: Z8000_ASM.MCZ, ZDOS file: MSATA
+  -> Sector out of range: 68
+Image file: Z8000_ASM.MCZ, ZDOS file: CARROT3
+  -> Sector out of range: 65
+Image file: Z8000_ASM.MCZ, ZDOS file: LPC10C
+  -> Sector out of range: 76
+Image file: Z8000_ASM.MCZ, ZDOS file: ERTST
+  -> Sector out of range: 55
+Image file: Z8000_ASM.MCZ, ZDOS file: WANDA
+  -> Sector out of range: 32
+Image file: Z8000_ASM.MCZ, ZDOS file: BENCH20
+  -> Invalid track number on disk image: 60, expected to read: 20
+Image file: Z8000_ASM.MCZ, ZDOS file: STEW
+  -> Sector out of range: 32
+Image file: Z8000_ASM.MCZ, ZDOS file: CONVRT.L
+  -> Sector out of range: 48
+Image file: Z8000_ASM.MCZ, ZDOS file: CONVRT.S
+  -> Track out of range: 7
+Image file: Z8000_ASM.MCZ, ZDOS file: OPUS_4
+  -> Sector out of range: 54
+Image file: Z8000_ASM.MCZ, ZDOS file: CONVRT.L.OLD
+  -> Invalid track number on disk image: 128, expected to read: 31
+Image file: Z8000_ASM.MCZ, ZDOS file: OLDLOD.L
+  -> Sector out of range: 255
+Image file: Z8000_DEV_MODULE.MCZ, ZDOS file: SIFT
+  -> Invalid track number on disk image: 8, expected to read: 27
+Image file: Z8000_DEV_MODULE.MCZ, ZDOS file: TEST
+  -> Invalid track number on disk image: 96, expected to read: 65
+Image file: Z8000_DEV_MODULE_SOURCE.MCZ, ZDOS file: SEG.MAIN.S
+  -> Invalid track number on disk image: 128, expected to read: 26
+Image file: Z8000_DEV_MODULE_SOURCE.MCZ, ZDOS file: SEG.PRG1.S
+  -> Invalid track number on disk image: 128, expected to read: 21
+Image file: Z8000_DEV_MODULE_SOURCE.MCZ, ZDOS file: SEG.PRG2.S
+  -> Invalid track number on disk image: 128, expected to read: 29
+Image file: Z8000_DEV_MODULE_SOURCE.MCZ, ZDOS file: SEG.PRG3.S
+  -> Invalid track number on disk image: 128, expected to read: 11
+Image file: Z8000_DEV_MODULE_SOURCE.MCZ, ZDOS file: SEG.PRG4.S
+  -> Invalid track number on disk image: 128, expected to read: 38
+Image file: Z8000_DEV_MODULE_SOURCE.MCZ, ZDOS file: SEG.PRG5.S
+  -> Invalid track number on disk image: 128, expected to read: 6
+Image file: Z8000_DEV_MODULE_SOURCE.MCZ, ZDOS file: SEG.PRG6.S
+  -> Invalid track number on disk image: 200, expected to read: 44
+Image file: Z8000_DEV_MODULE_SOURCE.MCZ, ZDOS file: Z.79218.S
+  -> Invalid track number on disk image: 128, expected to read: 45
+
