@@ -42,43 +42,6 @@ FILE *exportfd = NULL;
 long filesize;
 int endtrack;
 
-/* From https://stjarnhimlen.se/snippets/crc-16.c
-//
-//                                      16   12   5
-// this is the CCITT CRC 16 polynomial X  + X  + X  + 1.
-// This works out to be 0x1021, but the way the algorithm works
-// lets us use 0x8408 (the reverse of the bit pattern).  The high
-// bit is always assumed to be set, thus we only use 16 bits to
-// represent the 17 bit value.
-*/
-#define POLY 0x8408
-
-unsigned short crc16(char *data_p, unsigned short length)
-    {
-    unsigned char i;
-    unsigned int data;
-    unsigned int crc = 0xffff;
-
-    if (length == 0)
-        return (~crc);
-
-    do
-        {
-        for (i=0, data=(unsigned int)0xff & *data_p++; i < 8; i++, data >>= 1)
-            {
-            if ((crc & 0x0001) ^ (data & 0x0001))
-                crc = (crc >> 1) ^ POLY;
-            else
-                crc >>= 1;
-            }
-        } while (--length);
-
-    crc = ~crc;
-    data = crc;
-    crc = (crc << 8) | (data >> 8 & 0xff);
-
-    return (crc);
-    }
 
 /* Print image file name and ZDOS file name if error detected
  * and the analyze flag is on.
@@ -144,9 +107,8 @@ int read_sector(unsigned char *sbuf, int sector, int track)
 void print_sector(unsigned char *sbuf)
     {
     int dump_index;
-    unsigned int calc_crc;
 
-    printf("sect,track: %2d,%2d ", (sbuf[0] & 0x7f), sbuf[1]);
+    printf("sect,track: %02d,%02d ", (sbuf[0] & 0x7f), sbuf[1]);
     for (dump_index = 2; dump_index < 10; dump_index++)
         {
         printf(" %02x", sbuf[dump_index]);
@@ -159,10 +121,7 @@ void print_sector(unsigned char *sbuf)
         else
             printf(".");
         }
-    printf(" back: %2d,%2d fwd: %2d,%2d\n", sbuf[130], sbuf[131], sbuf[132], sbuf[133]);
-    /* Check CRC, this is however not yet the correct CRC calculation */
-    calc_crc = crc16(sbuf, 134);
-    printf("    crc: 0x%04x calc crc: 0x%04x\n", (sbuf[134] + 256 * sbuf[135]), calc_crc);
+    printf(" back: %02d,%02d fwd: %02d,%02d\n", sbuf[130], sbuf[131], sbuf[132], sbuf[133]);
     }
 
 /* Go through file
