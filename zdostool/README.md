@@ -14,6 +14,8 @@ Tool to list and export RIO files from Zilog ZDOS diskette image files
   -e, --export          export files from diskette image
   -f, --file [NAME]     name of the file if single file is listed or exported
   -h, --help            show help
+  -i, --ignore          ignore if sector or track numbers do not match what
+                        is read from the diskette image
   -v, --verbose         show details
 ``` 
 Some checks of the image are still missing.
