@@ -24,6 +24,7 @@ int backptr_flag = 0;
 int createdir_flag = 0;
 int descriptor_flag = 0;
 int export_flag = 0;
+int ignore_flag = 0;
 int verbose_flag = 0;
 
 char *program_name;
@@ -78,19 +79,19 @@ int read_sector(unsigned char *sbuf, int sector, int track)
         exit(EXIT_FAILURE);
         }
     insize = fread(sbuf, sizeof(sect_buf), 1, imagefd);
-    if (!(sbuf[0] & 0x80))
+    if (!(sbuf[0] & 0x80) && !ignore_flag)
         {
         prt_imgf_zdosf();
         printf("Invalid sector on disk: %d, no start bit, expected to read: %d\n", sbuf[0], sector);
         return (0);
         }
-    if ((sbuf[0] & 0x7f) != sector)
+    if (((sbuf[0] & 0x7f) != sector) && !ignore_flag)
         {
         prt_imgf_zdosf();
         printf("Invalid sector number on disk image: %d, expected to read: %d\n", sbuf[0] & 0x7f, sector);
         return (0);
         }
-    if (sbuf[1] != track)
+    if ((sbuf[1] != track) && !ignore_flag)
         {
         prt_imgf_zdosf();
         printf("Invalid track number on disk image: %d, expected to read: %d\n", sbuf[1], track);
@@ -344,6 +345,8 @@ Tool to list and export RIO files from Zilog ZDOS diskette image files\n\
   -e, --export          export files from diskette image\n\
   -f, --file [NAME]     name of the file if single file is listed or exported\n\
   -h, --help            show help\n\
+  -i, --ignore          ignore if sector or track numbers do not match what\n\
+                        is read from the diskette image\n\
   -v, --verbose         show details\n", stdout);
         }
     exit(status);
@@ -365,6 +368,7 @@ int main(int argc, char **argv)
             {"export",     no_argument,       NULL, 'e'},
             {"file",       required_argument, NULL, 'f'},
             {"help",       no_argument,       NULL, 'h'},
+            {"ignore",     no_argument,       NULL, 'i'},
             {"verbose",    no_argument,       NULL, 'v'},
             {NULL, 0, NULL, 0}
         };
@@ -372,7 +376,7 @@ int main(int argc, char **argv)
     int option_index = 0;
 
     program_name = basename(argv[0]);
-    while ((optchr = getopt_long(argc, argv, "abcdef:hv", long_options, NULL)) != -1)
+    while ((optchr = getopt_long(argc, argv, "abcdef:hiv", long_options, NULL)) != -1)
         {
         switch (optchr)
             {
@@ -396,6 +400,9 @@ int main(int argc, char **argv)
             break;
         case 'h':
             usage(EXIT_SUCCESS);
+            break;
+        case 'i':
+            ignore_flag = 1;
             break;
         case 'v':
             verbose_flag = 1;
