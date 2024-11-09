@@ -1,0 +1,124 @@
+Image file: ../../sebhc_mcz/13-3001-01_MCZ1-20_RIO_206.MCZ, ZDOS file: NOTE.TO.USER
+  -> Sector out of range: 128
+Image file: ../../sebhc_mcz/13-3001-01_MCZ1-20_RIO_206.MCZ, ZDOS file: HELLO.S
+  -> Invalid file header
+Image file: ../../sebhc_mcz/13-3001-03_MCZ-PDS_RIO_2-2.MCZ, ZDOS file: NBUG2.OBJ
+  -> Track out of range: 13
+Image file: ../../sebhc_mcz/13-3202-01A_MCZ_1_05-30_RIO_COMMANDS_SRC_2_OF_2.MCZ, ZDOS file: FORMAT.S
+  -> Sector out of range: 132
+Image file: ../../sebhc_mcz/13-3202-01A_MCZ_1_05-30_RIO_COMMANDS_SRC_2_OF_2.MCZ, ZDOS file: DEB.MCMDS.S
+  -> Sector out of range: 170
+Image file: ../../sebhc_mcz/13-3208-02_RIO_COMMANDS_SOURCE_1_OF_2.MCZ, ZDOS file: RIO1.S
+  -> Sector out of range: 66
+Image file: ../../sebhc_mcz/13-3208-02_RIO_COMMANDS_SOURCE_1_OF_2.MCZ, ZDOS file: CAT.S
+  -> Sector out of range: 164
+Image file: ../../sebhc_mcz/13-3209-01_RIO_COMMANDS_SOURCE_2_OF_2.MCZ, ZDOS file: COPY.DISK.S
+  -> Track out of range: 6
+Image file: ../../sebhc_mcz/13-3209-01_RIO_COMMANDS_SOURCE_2_OF_2.MCZ, ZDOS file: DISK.FILE.DEBUG.S
+  -> Sector out of range: 212
+Image file: ../../sebhc_mcz/13-3210-01_NBUG_&_ZBUG_SOURCES.MCZ, ZDOS file: NBUG1.S
+  -> Sector out of range: 238
+Image file: ../../sebhc_mcz/13-3210-01_NBUG_&_ZBUG_SOURCES.MCZ, ZDOS file: ZBUG.S
+  -> Sector out of range: 211
+Image file: ../../sebhc_mcz/13-3210-01_RIO_NBUG_AND_ZBUG_SOURCES.MCZ, ZDOS file: ZBUG.S
+  -> Sector out of range: 161
+Image file: ../../sebhc_mcz/13-3214-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_1_OF_2.MCZ, ZDOS file: EVAL.RES.S
+  -> Track out of range: 14
+Image file: ../../sebhc_mcz/13-3214-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_1_OF_2.MCZ, ZDOS file: SYMTAB.RES.S
+  -> Sector out of range: 32
+Image file: ../../sebhc_mcz/13-3214-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_1_OF_2.MCZ, ZDOS file: INSTID.P1.S
+  -> Sector out of range: 49
+Image file: ../../sebhc_mcz/13-3214-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_1_OF_2.MCZ, ZDOS file: UTL.P1.S
+  -> Sector out of range: 106
+Image file: ../../sebhc_mcz/13-3214-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_1_OF_2.MCZ, ZDOS file: UTL.RES.PROD.S
+  -> Track out of range: 4
+Image file: ../../sebhc_mcz/13-3214-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_1_OF_2.MCZ, ZDOS file: PEEL.RES.S
+  -> Sector out of range: 52
+Image file: ../../sebhc_mcz/13-3214-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_1_OF_2.MCZ, ZDOS file: IOUTL.RES.S
+  -> Sector out of range: 178
+Image file: ../../sebhc_mcz/13-3214-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_1_OF_2.MCZ, ZDOS file: SCAN.P1.S
+  -> Sector out of range: 80
+Image file: ../../sebhc_mcz/13-3215-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_2_OF_2.MCZ, ZDOS file: BUILD1.P2.S
+  -> Sector out of range: 132
+Image file: ../../sebhc_mcz/13-3215-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_2_OF_2.MCZ, ZDOS file: BUILDTABL.P2.S
+  -> Track out of range: 26
+Image file: ../../sebhc_mcz/13-3215-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_2_OF_2.MCZ, ZDOS file: OUTPUT.P2.S
+  -> Sector out of range: 65
+Image file: ../../sebhc_mcz/13-3215-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_2_OF_2.MCZ, ZDOS file: SYMTAB.P2.S
+  -> Sector out of range: 201
+Image file: ../../sebhc_mcz/13-3215-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_2_OF_2.MCZ, ZDOS file: OUTPUT.P3.S
+  -> Sector out of range: 83
+Image file: ../../sebhc_mcz/13-3215-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_2_OF_2.MCZ, ZDOS file: BAD.OUTPUT.P3.S
+  -> Sector out of range: 144
+Image file: ../../sebhc_mcz/13-3215-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_2_OF_2.MCZ, ZDOS file: LINK1.S
+  -> Sector out of range: 219
+Image file: ../../sebhc_mcz/13-3215-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_2_OF_2.MCZ, ZDOS file: LINK4.S
+  -> Sector out of range: 64
+Image file: ../../sebhc_mcz/13-3215-01_RIO_ASSEMBLER_AND_LINK_SOURCES_REL_2.13_2_OF_2.MCZ, ZDOS file: LINK6.S
+  -> Sector out of range: 64
+Image file: ../../sebhc_mcz/13-3222-02_RIO_EDIT_SOURCES_REL_2.2.MCZ, ZDOS file: DIRECTORY
+  -> Invalid file header
+Image file: ../../sebhc_mcz/13-3222-02_RIO_EDIT_SOURCES_REL_2.2.MCZ, ZDOS file: EDDEL.S
+  -> Last read sector and track: 01,01 in file is not same as in header: 25,24
+Image file: ../../sebhc_mcz/13-3222-02_RIO_EDIT_SOURCES_REL_2.2.MCZ, ZDOS file: EDCHG.S
+  -> Sector out of range: 34
+Image file: ../../sebhc_mcz/13-3222-02_RIO_EDIT_SOURCES_REL_2.2.MCZ, ZDOS file: EDSUB3.S
+  -> Sector out of range: 114
+Image file: ../../sebhc_mcz/13-3222-02_RIO_EDIT_SOURCES_REL_2.2.MCZ, ZDOS file: EDSTOR.S
+  -> Sector out of range: 40
+Image file: ../../sebhc_mcz/13-3222-02_RIO_EDIT_SOURCES_REL_2.2.MCZ, ZDOS file: EDIO.S
+  -> Sector out of range: 164
+Image file: ../../sebhc_mcz/13-3222-02_RIO_EDIT_SOURCES_REL_2.2.MCZ, ZDOS file: EDINT.S
+  -> Sector out of range: 146
+Image file: ../../sebhc_mcz/13-3222-02_RIO_EDIT_SOURCES_REL_2.2.MCZ, ZDOS file: EDPG.S
+  -> Track out of range: 4
+Image file: ../../sebhc_mcz/13-3263-03A_MCZ_1_35_PROM_SOURCE_4K_790226_33-0084-34,37_REV_D.MCZ, ZDOS file: MCZ.1.90.PROM.790226.OBJ
+  -> Last read sector and track: 15,68 in file is not same as in header: 17,70
+Image file: ../../sebhc_mcz/13-3391-03_ASYNC_MCZ1-PDS_SYSTEM_REL_1-1.MCZ, ZDOS file: FEP.USER.GUIDE.OLD
+  -> Track out of range: 11
+Image file: ../../sebhc_mcz/RIO2-2.MCZ, ZDOS file: CON.MAIN.OBJ
+  -> Sector out of range: 45
+Image file: ../../sebhc_mcz/RIO2-2.MCZ, ZDOS file: NBUG.OBJ
+  -> Sector out of range: 144
+Image file: ../../sebhc_mcz/Z8000_ASM.MCZ, ZDOS file: Z8000ASM
+  -> Track out of range: 2
+Image file: ../../sebhc_mcz/Z8000_ASM.MCZ, ZDOS file: MSATA
+  -> Sector out of range: 68
+Image file: ../../sebhc_mcz/Z8000_ASM.MCZ, ZDOS file: CARROT3
+  -> Sector out of range: 65
+Image file: ../../sebhc_mcz/Z8000_ASM.MCZ, ZDOS file: SIFT
+  -> Last read sector and track: 30,28 in file is not same as in header: 10,28
+Image file: ../../sebhc_mcz/Z8000_ASM.MCZ, ZDOS file: OPUS20
+  -> Last read sector and track: 27,28 in file is not same as in header: 16,29
+Image file: ../../sebhc_mcz/Z8000_ASM.MCZ, ZDOS file: LPC10C
+  -> Invalid file header
+Image file: ../../sebhc_mcz/Z8000_ASM.MCZ, ZDOS file: ERTST
+  -> Invalid file header
+Image file: ../../sebhc_mcz/Z8000_ASM.MCZ, ZDOS file: WANDA
+  -> Invalid file header
+Image file: ../../sebhc_mcz/Z8000_ASM.MCZ, ZDOS file: BENCH20
+  -> Sector out of range: 40
+Image file: ../../sebhc_mcz/Z8000_ASM.MCZ, ZDOS file: RESIDUAL
+  -> Last read sector and track: 02,32 in file is not same as in header: 28,32
+Image file: ../../sebhc_mcz/Z8000_ASM.MCZ, ZDOS file: STEW
+  -> Invalid file header
+Image file: ../../sebhc_mcz/Z8000_ASM.MCZ, ZDOS file: JUNK
+  -> Invalid file header
+Image file: ../../sebhc_mcz/Z8000_ASM.MCZ, ZDOS file: CONVRT.L
+  -> Sector out of range: 48
+Image file: ../../sebhc_mcz/Z8000_ASM.MCZ, ZDOS file: CONVRT.S
+  -> Track out of range: 7
+Image file: ../../sebhc_mcz/Z8000_ASM.MCZ, ZDOS file: OPUS_4
+  -> Invalid file header
+Image file: ../../sebhc_mcz/Z8000_ASM.MCZ, ZDOS file: CONVRT.L.OLD
+  -> Last read sector and track: 08,04 in file is not same as in header: 02,32
+Image file: ../../sebhc_mcz/Z8000_ASM.MCZ, ZDOS file: OLDLOD.L
+  -> Sector out of range: 255
+Image file: ../../sebhc_mcz/Z8000_ASM.MCZ, ZDOS file: OLDLOD.L.OLD
+  -> Last read sector and track: 00,03 in file is not same as in header: 03,44
+Image file: ../../sebhc_mcz/Z8000_DEV_MODULE.MCZ, ZDOS file: SIFT
+  -> Last read sector and track: 00,27 in file is not same as in header: 10,28
+Image file: ../../sebhc_mcz/Z8000_DEV_MODULE.MCZ, ZDOS file: TEST
+  -> Sector out of range: 252
+Image file: ../../sebhc_mcz/Z8000_DEV_MODULE_SOURCE.MCZ, ZDOS file: Z.79218.S
+  -> Sector out of range: 50

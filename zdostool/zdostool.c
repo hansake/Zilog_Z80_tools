@@ -206,7 +206,7 @@ void file_walk(char *fname, unsigned char *dbuf)
             if ((previous_rec_sector != file_sec_buf[130]) || (previous_rec_track != file_sec_buf[131]))
                 {
                 prt_imgf_zdosf();
-                printf("Invalid backward pointer: %d,%d in sector: %d,%d\n",
+                printf("Invalid backward pointer: %02d,%02d in sector: %02d,%02d\n",
                     file_sec_buf[130], file_sec_buf[131],
                     file_sec_buf[132], file_sec_buf[133]);
                 }
@@ -219,6 +219,17 @@ void file_walk(char *fname, unsigned char *dbuf)
         curr_rec_track = file_sec_buf[133];
         if ((curr_rec_sector == 0xff) && (curr_rec_track == 0xff))
             break;
+        }
+    /* Check if last read sector,track is same as last sector,track in header */
+    if (analyze_flag)
+        {
+        if ((previous_rec_sector != last_rec_sector) || (previous_rec_track != last_rec_track))
+            {
+            prt_imgf_zdosf();
+            printf("Last read sector and track: %02d,%02d in file is not same as in header: %02d,%02d\n",
+                    previous_rec_sector, previous_rec_track,
+                    last_rec_sector, last_rec_track);
+            }        
         }
     if (verbose_flag)
         {
@@ -274,6 +285,14 @@ void directory_walk()
                     }
                 if (read_sector(des_buf, des_sector, des_track) == 0)
                     return;
+                /* Check that the header seems correct */
+                if ((des_buf[2 + 0] | des_buf[2 + 1] | des_buf[2 + 2] | des_buf[2 + 3] | des_buf[2 + 4] | des_buf[2 + 5]) != 0)
+                    {
+                    prt_imgf_zdosf();
+                    printf("Invalid file header\n");
+                    if (!descriptor_flag)
+                        continue;
+                    }
                 if (descriptor_flag)
                     {
                     printf("  Reserved: 0x%02x 0x%02x 0x%02x 0x%02x\n", des_buf[2 + 0], des_buf[2 + 1], des_buf[2 + 2], des_buf[2 + 3]);
