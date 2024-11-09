@@ -326,13 +326,24 @@ void directory_walk()
         }
     }
 
+/* Version information
+ */
+void version(int status)
+    {
+    printf("Compiled: %s\n", COMPILE_TIME);
+    printf("Git branch: %s\n", GIT_BRANCH);
+    printf("Git hash: %s\n", GIT_HASH);
+    exit(status);
+    }
+
 /* Usage information
  */
-void usage (int status)
+void usage(int status)
     {
+
     if (status != EXIT_SUCCESS)
         fprintf(stderr, "Try `%s --help' for more information.\n", program_name);
-   else
+    else
         {
         printf("Usage: %s [OPTIONS] [IMAGEFILES]...\n", program_name);
         fputs("\
@@ -347,6 +358,7 @@ Tool to list and export RIO files from Zilog ZDOS diskette image files\n\
   -h, --help            show help\n\
   -i, --ignore          ignore if sector or track numbers do not match what\n\
                         is read from the diskette image\n\
+  -V, --version         show version\n\
   -v, --verbose         show details\n", stdout);
         }
     exit(status);
@@ -369,6 +381,7 @@ int main(int argc, char **argv)
             {"file",       required_argument, NULL, 'f'},
             {"help",       no_argument,       NULL, 'h'},
             {"ignore",     no_argument,       NULL, 'i'},
+            {"version",    no_argument,       NULL, 'V'},
             {"verbose",    no_argument,       NULL, 'v'},
             {NULL, 0, NULL, 0}
         };
@@ -376,7 +389,7 @@ int main(int argc, char **argv)
     int option_index = 0;
 
     program_name = basename(argv[0]);
-    while ((optchr = getopt_long(argc, argv, "abcdef:hiv", long_options, NULL)) != -1)
+    while ((optchr = getopt_long(argc, argv, "abcdef:hiVv", long_options, NULL)) != -1)
         {
         switch (optchr)
             {
@@ -403,6 +416,9 @@ int main(int argc, char **argv)
             break;
         case 'i':
             ignore_flag = 1;
+            break;
+        case 'V':
+            version(EXIT_SUCCESS);
             break;
         case 'v':
             verbose_flag = 1;
