@@ -1,0 +1,127 @@
+The ZDOS floppy disk format for Zilog MCZ computers
+===================================================
+
+This information is copied from:
+- https://github.com/sebhc/sebhc/tree/master/mcz
+- http://www.bitsavers.org/pdf/zilog/mcz-1/03-0072-01A_Z80-RIO_Operating_System_Users_Manual_upd_Nov79.pdf
+
+Disk images are saved in the MCZ disk format. The format is defined as follows:
+
+    Sector: (1 byte sector number) (1 byte track number) (128 bytes data) (2 byte back ptr) (2 byte fwd ptr) (2 byte crc) (136 bytes)
+        (NOTE: Sector number always has the high bit set. It is the start bit marker so the hardware, after reading all zeros in the preamble,
+        can detect the start of data. So sector 0 will actually be 80H and sector 31 will be 9FH on the disk. This is followed by the track
+        number ranging from 0 to 76)
+    One track: 32 sectors (4,352 bytes)
+    One disk: 77 tracks (335,104 bytes)
+
+Files are accessed by name through a directory. The
+directory is itself a file, and can be accessed as such by
+its name, 'DIRECTORY', which is the first entry in each
+directory. Unlike other files, however, it has a known
+first record so that it can be found: that is, it always
+begins at a fixed address known to the system. ZDOS
+'DIRECTORY' files are type directory, subtype 0.
+
+The information contained in the descriptor record is as
+follows:
+       Bytes 0-3      Reserved for future expansion
+       Bytes 4-5      File ID - currently unused
+       Bytes, 6-7     Pointer to directory sector holding
+                        entry for this file
+       Bytes 8-9      Pointer to first data record of file
+       Bytes 10-11    Pointer to last data record of file
+       Byte 12        File type and subtype - see
+                        description with the OPEN request
+                          Type and subtype. There are 4 types of files recognized by the system.
+                          Each is assigned one of the top four bits of this word. The
+                          bottom four bits are available for user defined subtypes.
+                          Bit 7 - procedure type files.
+                          Bit 6 - Directory files.
+                          Bit 5 - ASCII files.
+                          Bit 4 - Data files.
+       Bytes 13-14    Record count
+      ,Bytes 15-16    Record length
+       Bytes 17-18    Block length - currently unused,
+                        and set to be same as record length
+       Byte   19      File properties - see description
+                        with the OPEN request
+       Bytes 20-21    Starting execution address for
+                        procedure files (entry point)
+       Bytes  22-23   Number of bytes in last record
+       Bytes  24-31   Date of creation
+       Bytes  32-39   Date of last modification
+       Bytes  40-127  Available for programmer definition
+
+The Date of creation and Date of last modification are moved
+to the descriptor from the System Global Variable DATE at the
+appropriate times. Thus, if DATE is maintained to indicate
+the current date, then the descriptor record can give some
+historical information about the file.
+The information stored in the descriptor (except for the
+first 12 bytes) is available to the program accessing the
+file at the time it is OPENed or while it is open by means
+of a QUERY ATTRIBUTES request.   It can also be supplied at
+the time the file is created, or later by a SET ATTRIBUTES
+request, or when the file is UPDATED or CLOSED.   See the
+appropriate request description for 'details.
+Implicit in the description of accessing a file is the
+concept of the file pointer. There are actually three
+pointers. The one referred to as the pointer is the
+"current record pointer", the disk address of the record
+considered to be the current one. This is normally the
+record last handled, as, for example, in reading or
+writing. The "previous record pointer" contains the disk
+address of the record preceding the current one in the
+sequence of the file. The "next record pointer" contains the
+disk address of the record following the current one in the
+sequence. A file is said to be active if these pointers
+are valid. OPENing a file consists of locating it in a
+directory, reading its descriptor record, and initializing
+these pointers.
+A doubly-linked list provides some redundancy in
+establishing the sequence of the records. This redundancy
+is used when traversing the file to check the file
+integrity. For example, the forward pointer of the current
+record is used to establish the next record. When the next
+record is read, its back pointer is checked to make sure it
+indicates the current record. A failure of this or a
+similar check is what is referred to as a pointer error.
+ZDOS is designed to operate with up to 8 floppy disk
+drives, each holding approximately 300 Kbytes. The
+standard MCZ has two drives, configured as drive 0 (also
+referred to as the system drive), and drive 2. The ZDS
+also has two drives configured as drive 0 (referred
+to as the system drive), and drive 1. When a file
+is to be located, and the drive is not specifically
+indicated (equivalent to specifying '*'), the drives are
+searched in order, starting with drive 1, and continuing
+through the highest disk which is attached and ready, and
+finally, if still unsuccessful, concluding with drive o.
+Similarly, if a file is to be created without specifying
+which disk it is to be on, it will be created on the first
+disk which is attached and ready in the same search order.
+
+DESCRIPTOR RECORD OF PROCEDURE TYPE FILE
+
+Bytes 0..39 as described above.
+
+    40..40+4*n  : Where n is the number of segment
+                  descriptors (0 <= n <= 16)
+                  Each segment descriptor is 4 bytes--
+                  the first 2 bytes are the starting
+                  address of the segment and the
+                  second 2 bytes are the length of
+                  the segment in bytes. After the
+                  the last segment descriptor is a
+                  null descriptor where each of the
+                  4 bytes are zero.
+
+    122..123    : Lowest segment starting address
+                    (LOW_ADDRESS)
+
+    124..125    : Highest segment ending address
+                    rounded up to the end of the record
+                    (HIGH_ADDRESS)
+
+    126..127    : Stack size
+
